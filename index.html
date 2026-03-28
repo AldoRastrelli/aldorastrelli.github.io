@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aldana Rastrelli - iOS Developer & Educator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blue-dark: #0f2b46;
+            --blue: #1a5276;
+            --blue-mid: #2980b9;
+            --blue-light: #5dade2;
+            --green: #1abc9c;
+            --green-light: #48c9b0;
+            --green-pale: #a3e4d7;
+            --white: #ffffff;
+            --gray-50: #f8f9fa;
+            --gray-100: #e9ecef;
+            --gray-600: #6c757d;
+            --gray-800: #343a40;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 43, 70, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+
+        nav .logo span {
+            color: var(--green);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav ul a {
+            color: var(--gray-100);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            transition: color 0.3s;
+        }
+
+        nav ul a:hover {
+            color: var(--green);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            background: none;
+            border: none;
+            padding: 0.5rem;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--white);
+            transition: 0.3s;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 50%, #0e6251 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(26, 188, 156, 0.12) 0%, transparent 70%);
+            top: -200px;
+            right: -100px;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(93, 173, 226, 0.1) 0%, transparent 70%);
+            bottom: -100px;
+            left: -100px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-label {
+            display: inline-block;
+            color: var(--green);
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 {
+            color: var(--white);
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--blue-light), var(--green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.2rem;
+            max-width: 550px;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--green);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--green-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: var(--white);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--green);
+            color: var(--green);
+            transform: translateY(-2px);
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--blue-dark);
+        }
+
+        .section-subtitle {
+            color: var(--gray-600);
+            font-size: 1.05rem;
+            margin-bottom: 3rem;
+        }
+
+        .section-line {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--blue-mid), var(--green));
+            border-radius: 2px;
+            margin-bottom: 1rem;
+        }
+
+        /* About */
+        .about {
+            background: var(--white);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+            color: var(--gray-800);
+        }
+
+        .about-highlights {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .highlight-card {
+            background: var(--gray-50);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 3px solid var(--green);
+        }
+
+        .highlight-card .number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--blue);
+        }
+
+        .highlight-card .label {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+            margin-top: 0.25rem;
+        }
+
+        /* Projects */
+        .projects {
+            background: var(--gray-50);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s;
+            border: 1px solid var(--gray-100);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+            border-color: var(--green-pale);
+        }
+
+        .project-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .project-icon.swift {
+            background: linear-gradient(135deg, #f05138, #ff8a65);
+            color: white;
+        }
+
+        .project-icon.c-lang {
+            background: linear-gradient(135deg, var(--blue), var(--blue-light));
+            color: white;
+        }
+
+        .project-icon.rust {
+            background: linear-gradient(135deg, #b7410e, #e67e22);
+            color: white;
+        }
+
+        .project-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--blue-dark);
+        }
+
+        .project-card p {
+            color: var(--gray-600);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            padding: 0.3rem 0.8rem;
+            background: var(--gray-50);
+            border-radius: 20px;
+            font-size: 0.78rem;
+            color: var(--blue);
+            font-weight: 500;
+        }
+
+        /* Teaching */
+        .teaching {
+            background: var(--white);
+        }
+
+        .teaching-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .teaching-info h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--blue-dark);
+            margin-bottom: 1rem;
+        }
+
+        .teaching-info p {
+            color: var(--gray-800);
+            margin-bottom: 1.5rem;
+        }
+
+        .teaching-stats {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .teaching-stat {
+            text-align: center;
+        }
+
+        .teaching-stat .number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--green);
+        }
+
+        .teaching-stat .label {
+            font-size: 0.8rem;
+            color: var(--gray-600);
+        }
+
+        .teaching-visual {
+            background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+            border-radius: 20px;
+            padding: 3rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .teaching-visual::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(26, 188, 156, 0.1);
+            top: -60px;
+            right: -60px;
+        }
+
+        .teaching-visual h4 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+        }
+
+        .teaching-visual .course-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .teaching-visual .institution {
+            font-size: 1rem;
+            opacity: 0.7;
+            margin-bottom: 2rem;
+        }
+
+        .teaching-visual .detail-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .teaching-visual .detail-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .teaching-visual .detail-list li::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--green);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* Contact */
+        .contact {
+            background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 50%, #0e6251 100%);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .contact .section-title {
+            color: var(--white);
+        }
+
+        .contact .section-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .contact-link:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--green);
+            transform: translateY(-2px);
+        }
+
+        .contact-link svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--blue-dark);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 1001;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--blue-dark);
+            color: rgba(255, 255, 255, 0.5);
+            text-align: center;
+            padding: 2rem 0;
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(15, 43, 70, 0.98);
+                flex-direction: column;
+                padding: 1rem 2rem;
+                gap: 1rem;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .about-grid,
+            .teaching-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-highlights {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .teaching-stats {
+                justify-content: center;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="#" class="logo">A<span>.</span>R</a>
+            <button class="hamburger" id="hamburger-btn" type="button" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <ul id="nav-menu">
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#teaching">Teaching</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <span class="hero-label">iOS Developer & Educator</span>
+                <h1>Hi, I'm <span>Aldana Rastrelli</span></h1>
+                <p>iOS developer building polished mobile experiences. Currently at Flipaclip, previously at PedidosYa. Passionate about systems programming, distributed systems, and computer science education.</p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">View Projects</a>
+                    <a href="#contact" class="btn btn-outline">Get in Touch</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-line"></div>
+            <h2 class="section-title">About Me</h2>
+            <p class="section-subtitle">Engineer, developer, and educator based in Buenos Aires.</p>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>I'm a Software Engineer with a degree from the Universidad de Buenos Aires (FIUBA). My professional career spans iOS development at companies like <strong>Flipaclip</strong> and <strong>PedidosYa</strong>.</p>
+                    <p>Beyond mobile development, I enjoy exploring systems-level programming. I've built projects ranging from a distributed PostgreSQL implementation to a Bitcoin node in Rust, and a macOS terminal multiplexer in SwiftUI.</p>
+                    <p>I'm also deeply committed to education. As coordinator of "Pensamiento Computacional" at the CBC (UBA), I lead a team of 20 instructors across 14 courses each semester, helping introduce thousands of students to computational thinking.</p>
+                </div>
+                <div class="about-highlights">
+                    <div class="highlight-card">
+                        <div class="number">iOS</div>
+                        <div class="label">Primary platform</div>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="number">FIUBA</div>
+                        <div class="label">Software Engineering</div>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="number">20+</div>
+                        <div class="label">Instructors coordinated</div>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="number">Arctic</div>
+                        <div class="label">Code Vault Contributor — code preserved for 1,000 years in GitHub's Arctic Archive, Svalbard</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <div class="section-line"></div>
+            <h2 class="section-title">Some of my Projects</h2>
+            <p class="section-subtitle">A selection of things I've built.</p>
+            <div class="projects-grid">
+
+                <a href="https://github.com/AldoRastrelli/CodeStation" target="_blank" rel="noopener noreferrer" class="project-card">
+                    <div class="project-icon swift">CS</div>
+                    <h3>CodeStation</h3>
+                    <p>A macOS terminal multiplexer built with SwiftUI and SwiftTerm. Manage multiple terminal sessions in workspaces with custom prompt buttons, smart notifications, and drag-and-drop rearrangement.</p>
+                    <div class="project-tags">
+                        <span class="tag">Swift</span>
+                        <span class="tag">SwiftUI</span>
+                        <span class="tag">macOS</span>
+                    </div>
+                </a>
+
+                <a href="https://github.com/AldoRastrelli/distributed-postgres" target="_blank" rel="noopener noreferrer" class="project-card">
+                    <div class="project-icon c-lang">DP</div>
+                    <h3>Distributed PostgreSQL</h3>
+                    <p>An extension of PostgreSQL's C source code with a Rust sharding crate for distributed database functionality. Supports full CRUD operations across multiple shard instances with transparent routing.</p>
+                    <div class="project-tags">
+                        <span class="tag">C</span>
+                        <span class="tag">Rust</span>
+                        <span class="tag">PostgreSQL</span>
+                    </div>
+                </a>
+
+                <a href="https://github.com/AldoRastrelli/NewsMobileApp" target="_blank" rel="noopener noreferrer" class="project-card">
+                    <div class="project-icon swift">NM</div>
+                    <h3>News Mobile App</h3>
+                    <p>iOS app that aggregates news content via News API with a friends list and location mapping. Built with MVVM architecture, Combine framework, and Google Maps SDK. 84% test coverage.</p>
+                    <div class="project-tags">
+                        <span class="tag">Swift</span>
+                        <span class="tag">MVVM</span>
+                        <span class="tag">Combine</span>
+                    </div>
+                </a>
+
+                <a href="https://github.com/AldoRastrelli/BitcoinNode" target="_blank" rel="noopener noreferrer" class="project-card">
+                    <div class="project-icon rust">BN</div>
+                    <h3>Bitcoin Node</h3>
+                    <p>A Rust implementation of a Bitcoin node, developed as a course project at FIUBA. Handles peer-to-peer networking, block validation, and transaction processing.</p>
+                    <div class="project-tags">
+                        <span class="tag">Rust</span>
+                        <span class="tag">Networking</span>
+                        <span class="tag">Blockchain</span>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Teaching -->
+    <section class="teaching" id="teaching">
+        <div class="container">
+            <div class="section-line"></div>
+            <h2 class="section-title">Teaching</h2>
+            <p class="section-subtitle">Helping the next generation think computationally.</p>
+            <div class="teaching-content">
+                <div class="teaching-info">
+                    <h3>Coordinator, Pensamiento Computacional</h3>
+                    <p>I coordinate the "Pensamiento Computacional" course at the Ciclo Basico Comun (CBC) of the Universidad de Buenos Aires. This introductory course reaches a large number of engineering students every semester, providing their first structured exposure to computational thinking and problem solving.</p>
+                    <div class="teaching-stats">
+                        <div class="teaching-stat">
+                            <div class="number">20</div>
+                            <div class="label">Instructors</div>
+                        </div>
+                        <div class="teaching-stat">
+                            <div class="number">14</div>
+                            <div class="label">Courses / semester</div>
+                        </div>
+                    </div>
+                    <a href="https://pensamientocomputacional.dev.ar" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Visit Course Website</a>
+                </div>
+                <div class="teaching-visual">
+                    <h4>CBC - Universidad de Buenos Aires</h4>
+                    <div class="course-name">Pensamiento Computacional</div>
+                    <div class="institution">Ciclo Basico Comun</div>
+                    <ul class="detail-list">
+                        <li>Course coordination and curriculum design</li>
+                        <li>Team leadership across 14 parallel sections</li>
+                        <li>Introduction to computational thinking for university students</li>
+                        <li>Bridging engineering and education</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-line" style="margin-left: auto; margin-right: auto;"></div>
+            <h2 class="section-title">Get in Touch</h2>
+            <p class="section-subtitle">Feel free to reach out for collaborations, opportunities, or just to say hi.</p>
+            <div class="contact-links">
+                <button type="button" id="copy-email-btn" class="contact-link">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    Email
+                </button>
+                <a href="https://www.linkedin.com/in/aldanarastrelli/" target="_blank" rel="noopener noreferrer" class="contact-link">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    LinkedIn
+                </a>
+                <a href="https://github.com/AldoRastrelli" target="_blank" rel="noopener noreferrer" class="contact-link">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="toast" id="toast" role="status" aria-live="polite">Copied to clipboard</div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Aldana Rastrelli. Built with care in Buenos Aires.</p>
+        </div>
+    </footer>
+
+    <script>
+        const navMenu = document.getElementById('nav-menu');
+        const hamburger = document.getElementById('hamburger-btn');
+        const toast = document.getElementById('toast');
+
+        hamburger.addEventListener('click', () => {
+            const isOpen = navMenu.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', isOpen);
+        });
+
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        document.getElementById('copy-email-btn').addEventListener('click', () => {
+            const email = 'aldanarastrelli@gmail.com';
+
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(email);
+            } else {
+                const textArea = document.createElement('textarea');
+                textArea.value = email;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+            }
+
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        });
+    </script>
+
+</body>
+</html>
