@@ -366,6 +366,87 @@
             font-weight: 500;
         }
 
+        .other-projects-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--blue-dark);
+            margin: 4rem 0 0.5rem;
+        }
+
+        .other-projects-subtitle {
+            color: var(--gray-600);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .other-projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .mini-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            background: var(--white);
+            border: 1px solid var(--gray-100);
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s;
+        }
+
+        .mini-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            border-color: var(--green-pale);
+        }
+
+        .mini-card .project-icon {
+            width: 40px;
+            height: 40px;
+            font-size: 1rem;
+            margin-bottom: 0;
+            flex-shrink: 0;
+        }
+
+        .mini-card h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--blue-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .mini-card p {
+            color: var(--gray-600);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin-bottom: 0.4rem;
+        }
+
+        .mini-card .site-url {
+            font-size: 0.78rem;
+            color: var(--green);
+            font-weight: 500;
+        }
+
+        .project-icon.web {
+            background: linear-gradient(135deg, #0e6251, var(--green));
+            color: white;
+        }
+
+        .project-icon.neon {
+            background: linear-gradient(135deg, #6c2bd9, #ff2d95);
+            color: white;
+        }
+
+        .project-icon.marvel {
+            background: linear-gradient(135deg, #7b0d0d, #e62429);
+            color: white;
+        }
+
         /* Teaching */
         .teaching {
             background: var(--white);
@@ -590,7 +671,8 @@
                 gap: 2rem;
             }
 
-            .projects-grid {
+            .projects-grid,
+            .other-projects-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -730,6 +812,39 @@
                         <span class="tag">Rust</span>
                         <span class="tag">Networking</span>
                         <span class="tag">Blockchain</span>
+                    </div>
+                </a>
+
+            </div>
+
+            <h3 class="other-projects-title">Other Projects</h3>
+            <p class="other-projects-subtitle">Smaller things, live on the web.</p>
+            <div class="other-projects-grid">
+
+                <a href="https://msruibal.dev.ar/" target="_blank" rel="noopener noreferrer" class="mini-card">
+                    <div class="project-icon web">TO</div>
+                    <div>
+                        <h4>María Sol Ruibal</h4>
+                        <p>Website for an occupational therapist specialized in hand therapy and upper limb rehabilitation.</p>
+                        <span class="site-url">msruibal.dev.ar</span>
+                    </div>
+                </a>
+
+                <a href="http://aldogames.studio/" target="_blank" rel="noopener noreferrer" class="mini-card">
+                    <div class="project-icon neon">A'</div>
+                    <div>
+                        <h4>Aldo's</h4>
+                        <p>A neon browser arcade. Pick a game, set a deadline and beat your friends on a shared leaderboard.</p>
+                        <span class="site-url">aldogames.studio</span>
+                    </div>
+                </a>
+
+                <a href="https://aldanarastrelli.dev.ar/marvel-doomsday/" target="_blank" rel="noopener noreferrer" class="mini-card">
+                    <div class="project-icon marvel">MD</div>
+                    <div>
+                        <h4>Rumbo a Doomsday</h4>
+                        <p>MCU checklist in release order. Mark what you've watched and see how ready you are for Avengers: Doomsday.</p>
+                        <span class="site-url">aldanarastrelli.dev.ar/marvel-doomsday</span>
                     </div>
                 </a>
 
